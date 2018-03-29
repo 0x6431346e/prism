@@ -7,18 +7,19 @@ function getLogin() {
   const oldToken = localStorage.getItem('token')
 
   if (oldToken) {
+    console.log('old token found')
     return true
   }
 
-  // new login
   if (window.location.hash) {
+    console.log('new login')
     const query = queryString.parse(window.location.hash)
     const newToken = query.access_token
 
-    // save
+    console.log('saving token')
     localStorage.setItem('token', newToken)
 
-    // reset hash
+    console.log('resetting hash')
     window.location.hash = ''
     return true
   }
@@ -32,7 +33,7 @@ function getLogin() {
 function login() {
   const client_id = '28ffe0bc2e5b46c3a559f351f8c90006'
   const redirect_uri = 'http://localhost:3000'
-  const scope = 'user-library-read playlist-read-private'
+  const scope = 'user-library-read playlist-read-private playlist-modify-private'
 
   let url = 'https://accounts.spotify.com/authorize'
   url += '?response_type=token'
